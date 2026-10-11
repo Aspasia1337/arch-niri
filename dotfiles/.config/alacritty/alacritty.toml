@@ -1,0 +1,50 @@
+[window]
+opacity = 0.88
+padding = { x = 14, y = 14 }
+decorations = "None"
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+bold = { family = "JetBrainsMono Nerd Font", style = "Bold" }
+size = 18
+
+[colors.primary]
+background = "#0a1208"
+foreground = "#e8d0d8"
+
+[colors.cursor]
+text = "#0a1208"
+cursor = "#e87896"
+
+[colors.vi_mode_cursor]
+text = "#0a1208"
+cursor = "#c4a0f0"
+
+[colors.selection]
+text = "#0a1208"
+background = "#c4a0f0"
+
+[colors.normal]
+black = "#1a2a1c"
+red = "#e87896"
+green = "#a6d189"
+yellow = "#e8a0b0"
+blue = "#b4a0e8"
+magenta = "#c4a0f0"
+cyan = "#d0a0c8"
+white = "#e8d0d8"
+
+[colors.bright]
+black = "#5a7a52"
+red = "#f0a0b4"
+green = "#c6f36b"
+yellow = "#f0c0c8"
+blue = "#d0b8f0"
+magenta = "#dbb8f8"
+cyan = "#e0b8d8"
+white = "#f5e0e8"
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"

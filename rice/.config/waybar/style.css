@@ -1,0 +1,295 @@
+/* ── Base ──────────────────────────────────────────────────────────── */
+* {
+    font-family: "JetBrainsMono Nerd Font", "Noto Color Emoji", "DejaVu Sans", sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    min-height: 0;
+    transition: 300ms ease;
+}
+
+window#waybar {
+    background: rgba(10, 18, 8, 0.88);
+    color: #e8f5d0;
+    border-bottom: 2px solid #8fd14f;
+}
+
+/* ── Workspaces ────────────────────────────────────────────────────── */
+#workspaces button {
+    padding: 0 14px;
+    margin: 5px 3px;
+    color: #5a7a52;
+    background: transparent;
+    border-radius: 10px;
+}
+
+#workspaces button.active {
+    color: #0a1208;
+    background: #8fd14f;
+    box-shadow: 0 0 10px rgba(143, 209, 79, 0.5);
+}
+
+#workspaces button:hover {
+    background: #1a2a1c;
+    color: #c6f36b;
+    box-shadow: 0 0 6px rgba(198, 243, 107, 0.3);
+}
+
+/* ── Cava visualizer ───────────────────────────────────────────────── */
+#custom-cava {
+    color: #7fc8ff;
+    font-size: 18px;
+    letter-spacing: 1px;
+    padding: 0 6px;
+    margin: 3px 0;
+    background: transparent;
+    text-shadow: 0 0 10px rgba(127, 200, 255, 0.6);
+}
+
+#custom-cava-r {
+    color: #8fd14f;
+    font-size: 18px;
+    letter-spacing: 1px;
+    padding: 0 6px;
+    margin: 3px 0;
+    background: transparent;
+    text-shadow: 0 0 10px rgba(143, 209, 79, 0.6);
+}
+
+/* ── Window title ──────────────────────────────────────────────────── */
+#window {
+    color: #a8c8a0;
+    margin-left: 14px;
+}
+
+/* ── All modules: base ─────────────────────────────────────────────── */
+#custom-music,
+#clock,
+#custom-weather,
+#cpu,
+#custom-cputemp,
+#memory,
+#custom-gpu,
+#custom-gputemp,
+#custom-disk,
+#network,
+#custom-ip,
+#custom-uptime,
+#custom-vms,
+#pulseaudio,
+#custom-mic,
+#custom-updates,
+#tray,
+#custom-power {
+    padding: 0 16px;
+    margin: 5px 4px;
+    border-radius: 10px;
+    background: rgba(20, 35, 18, 0.6);
+}
+
+/* cava: no bg pill, just the bars floating */
+#custom-cava,
+#custom-cava-r {
+    background: transparent;
+}
+
+/* ── Hover: glow on every module ───────────────────────────────────── */
+#custom-music:hover,
+#clock:hover,
+#custom-weather:hover,
+#cpu:hover,
+#custom-cputemp:hover,
+#memory:hover,
+#custom-gpu:hover,
+#custom-gputemp:hover,
+#custom-disk:hover,
+#network:hover,
+#custom-ip:hover,
+#custom-uptime:hover,
+#custom-vms:hover,
+#pulseaudio:hover,
+#custom-mic:hover,
+#custom-updates:hover,
+#custom-power:hover {
+    background: rgba(47, 125, 58, 0.35);
+    box-shadow: 0 0 10px rgba(143, 209, 79, 0.3);
+}
+
+/* ── Music ─────────────────────────────────────────────────────────── */
+#custom-music {
+    color: #c6f36b;
+    background: rgba(47, 125, 58, 0.25);
+    font-size: 15px;
+    padding: 0 20px;
+    text-shadow: 0 0 8px rgba(198, 243, 107, 0.4);
+}
+
+#custom-music.paused {
+    color: #5a7a52;
+    text-shadow: none;
+}
+
+#custom-music.stopped {
+    padding: 0;
+    margin: 0;
+}
+
+/* ── Clock: green glow ─────────────────────────────────────────────── */
+#clock {
+    color: #8fd14f;
+    background: rgba(47, 125, 58, 0.3);
+    font-size: 18px;
+    text-shadow: 0 0 10px rgba(143, 209, 79, 0.6);
+}
+
+#custom-weather {
+    color: #7fc8ff;
+}
+
+/* ── CPU: dynamic color via states ─────────────────────────────────── */
+#cpu {
+    color: #c6f36b;
+}
+
+#cpu.warning {
+    color: #ffa94d;
+    text-shadow: 0 0 6px rgba(255, 169, 77, 0.4);
+}
+
+#cpu.critical {
+    color: #ff1a3c;
+    text-shadow: 0 0 10px rgba(255, 26, 60, 0.6);
+}
+
+/* ── CPU temp: dynamic via class ───────────────────────────────────── */
+#custom-cputemp {
+    color: #f9e2af;
+}
+
+#custom-cputemp.warning {
+    color: #ffa94d;
+    text-shadow: 0 0 6px rgba(255, 169, 77, 0.4);
+}
+
+#custom-cputemp.critical {
+    color: #ff1a3c;
+    text-shadow: 0 0 10px rgba(255, 26, 60, 0.6);
+}
+
+/* ── Memory: dynamic color via states ──────────────────────────────── */
+#memory {
+    color: #7fc8ff;
+}
+
+#memory.warning {
+    color: #ffa94d;
+    text-shadow: 0 0 6px rgba(255, 169, 77, 0.4);
+}
+
+#memory.critical {
+    color: #ff1a3c;
+    text-shadow: 0 0 10px rgba(255, 26, 60, 0.6);
+}
+
+/* ── GPU: dynamic via class ────────────────────────────────────────── */
+#custom-gpu {
+    color: #b8a0d8;
+}
+
+#custom-gpu.warning {
+    color: #ffa94d;
+    text-shadow: 0 0 6px rgba(255, 169, 77, 0.4);
+}
+
+#custom-gpu.critical {
+    color: #ff1a3c;
+    text-shadow: 0 0 10px rgba(255, 26, 60, 0.6);
+}
+
+/* ── GPU temp: dynamic via class ───────────────────────────────────── */
+#custom-gputemp {
+    color: #ffa94d;
+}
+
+#custom-gputemp.warning {
+    color: #ffa94d;
+}
+
+#custom-gputemp.critical {
+    color: #ff1a3c;
+    text-shadow: 0 0 10px rgba(255, 26, 60, 0.6);
+}
+
+#custom-disk {
+    color: #7fd1b9;
+}
+
+#network {
+    color: #7fd1b9;
+}
+
+#network.disconnected {
+    color: #ff1a3c;
+}
+
+#custom-ip {
+    color: #94e2d5;
+}
+
+#custom-uptime {
+    color: #a8c8a0;
+}
+
+/* ── VMs ───────────────────────────────────────────────────────────── */
+#custom-vms {
+    color: #8fd14f;
+    background: rgba(47, 125, 58, 0.25);
+}
+
+#pulseaudio {
+    color: #b8a0d8;
+}
+
+#pulseaudio.muted {
+    color: #5a7a52;
+}
+
+/* ── Mic mute ──────────────────────────────────────────────────────── */
+#custom-mic {
+    color: #8fd14f;
+}
+
+#custom-mic.muted {
+    color: #ff5a3c;
+    text-shadow: 0 0 6px rgba(255, 90, 60, 0.4);
+}
+
+/* ── Updates ───────────────────────────────────────────────────────── */
+#custom-updates {
+    color: #c6f36b;
+}
+
+#custom-updates.pending {
+    color: #ffa94d;
+    text-shadow: 0 0 6px rgba(255, 169, 77, 0.4);
+}
+
+#custom-updates.none {
+    color: #5a7a52;
+}
+
+/* ── Power ─────────────────────────────────────────────────────────── */
+#custom-power {
+    color: #ff1a3c;
+    background: rgba(179, 0, 27, 0.2);
+    padding: 0 18px;
+}
+
+#custom-power:hover {
+    background: #ff1a3c;
+    color: #0a1208;
+    box-shadow: 0 0 14px rgba(255, 26, 60, 0.5);
+}
+
+#tray {
+    background: transparent;
+}

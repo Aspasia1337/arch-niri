@@ -1,0 +1,38 @@
+font=JetBrainsMono Nerd Font 11
+background-color=#0b1a0ecc
+text-color=#e8f5d0
+border-color=#8fd14f
+border-size=2
+border-radius=12
+padding=16,20
+margin=12
+width=420
+height=200
+icons=1
+max-icon-size=48
+default-timeout=5000
+anchor=top-right
+layer=overlay
+max-visible=4
+sort=-time
+group-by=app-name
+progress-color=over #2f7d3a
+
+[grouped]
+format=<b>%s</b> (%g)\n%b
+
+[urgency=low]
+border-color=#2f5d2a
+text-color=#a8c8a0
+default-timeout=3000
+
+[urgency=high]
+border-color=#ff5a3c
+background-color=#1a0508cc
+default-timeout=0
+
+[app-name=Spotify]
+border-color=#c6f36b
+
+[app-name=Firefox]
+border-color=#7fc8ff

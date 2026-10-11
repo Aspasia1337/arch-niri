@@ -1,0 +1,33 @@
+#!/bin/bash
+# libvirt hook: rebind the GPU to the host after the passthrough VM shuts down.
+#
+# The GPU is attached to the VM automatically by libvirt because the <hostdev>
+# entries use managed='yes' (libvirt detaches it from the host and binds it to
+# vfio-pci on start). This hook only handles the way back: on VM release it
+# unbinds the GPU from vfio-pci and rebinds the host's amdgpu + audio drivers,
+# then re-enables the virtual consoles.
+#
+# Install to: /etc/libvirt/hooks/qemu  (chmod +x)
+
+[ "$1" = "win11_gpu" ] || exit 0
+[ "$2" = "release" ] && [ "$3" = "end" ] || exit 0
+exec >> /var/log/libvirt/win11_gpu-hook.log 2>&1
+echo "== $(date) release =="
+
+VGA=0000:0d:00.0   # Radeon RX 9070 XT
+HDA=0000:0d:00.1   # GPU HDMI/DP audio
+
+sleep 2
+echo "$VGA" > /sys/bus/pci/drivers/vfio-pci/unbind
+echo "$HDA" > /sys/bus/pci/drivers/vfio-pci/unbind
+echo "" > /sys/bus/pci/devices/$VGA/driver_override
+echo "" > /sys/bus/pci/devices/$HDA/driver_override
+sleep 1
+
+modprobe amdgpu
+echo "$VGA" > /sys/bus/pci/drivers/amdgpu/bind
+sleep 3
+echo "$HDA" > /sys/bus/pci/drivers/snd_hda_intel/bind
+
+# Re-enable the virtual consoles (framebuffer) on the host
+for vt in /sys/class/vtconsole/vtcon*/bind; do echo 1 > "$vt"; done

@@ -1,0 +1,180 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 42,
+    "spacing": 10,
+    "output": "DP-1",
+
+    "modules-left": ["niri/workspaces", "niri/window"],
+    "modules-center": ["custom/cava", "custom/music", "custom/cava-r", "clock", "custom/weather"],
+    "modules-right": [
+        "cpu",
+        "custom/cputemp",
+        "memory",
+        "custom/gpu",
+        "custom/gputemp",
+        "custom/disk",
+        "network",
+        "custom/ip",
+        "custom/uptime",
+        "custom/vms",
+        "pulseaudio",
+        "custom/mic",
+        "custom/updates",
+        "tray",
+        "custom/power"
+    ],
+
+    "niri/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "active": "",
+            "default": ""
+        }
+    },
+
+    "custom/cava": {
+        "exec": "~/.config/waybar/scripts/cava-mic.sh",
+        "tooltip": false,
+        "max-length": 12
+    },
+
+    "custom/cava-r": {
+        "exec": "~/.config/waybar/scripts/cava-audio.sh",
+        "tooltip": false,
+        "max-length": 12
+    },
+
+    "niri/window": {
+        "format": "{title}",
+        "max-length": 40,
+        "separate-outputs": true
+    },
+
+    "custom/music": {
+        "exec": "~/.config/waybar/scripts/music.sh",
+        "return-type": "json",
+        "interval": 1,
+        "on-click": "playerctl play-pause",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous",
+        "max-length": 80
+    },
+
+    "clock": {
+        "format": " {:%H:%M  ·  %a %d %b}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "interval": 1
+    },
+
+    "custom/weather": {
+        "exec": "~/.config/waybar/scripts/weather.sh",
+        "interval": 900,
+        "tooltip": true
+    },
+
+    "cpu": {
+        "format": " {usage}%",
+        "interval": 2,
+        "states": {
+            "warning": 60,
+            "critical": 90
+        }
+    },
+
+    "custom/cputemp": {
+        "exec": "~/.config/waybar/scripts/cputemp.sh",
+        "return-type": "json",
+        "interval": 3
+    },
+
+    "memory": {
+        "format": " {percentage}%",
+        "interval": 3,
+        "tooltip-format": "{used:0.1f}G / {total:0.1f}G",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
+    },
+
+    "custom/gpu": {
+        "exec": "~/.config/waybar/scripts/gpu.sh",
+        "return-type": "json",
+        "interval": 3
+    },
+
+    "custom/gputemp": {
+        "exec": "~/.config/waybar/scripts/gputemp.sh",
+        "return-type": "json",
+        "interval": 3
+    },
+
+    "custom/disk": {
+        "exec": "~/.config/waybar/scripts/disk.sh",
+        "return-type": "json",
+        "interval": 60
+    },
+
+    "network": {
+        "interface": "enp6s0",
+        "format-ethernet": "󰈀 {bandwidthDownBits}  {bandwidthUpBits}",
+        "format-disconnected": "󰈂 offline",
+        "tooltip-format": "{ifname}: {ipaddr}",
+        "interval": 2
+    },
+
+    "custom/ip": {
+        "exec": "~/.config/waybar/scripts/ip.sh",
+        "return-type": "json",
+        "interval": 60
+    },
+
+    "custom/uptime": {
+        "exec": "~/.config/waybar/scripts/uptime.sh",
+        "interval": 60,
+        "tooltip": false
+    },
+
+    "custom/vms": {
+        "exec": "~/.config/waybar/scripts/vms.sh",
+        "return-type": "json",
+        "interval": 5,
+        "on-click": "virt-manager"
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟 mute",
+        "format-icons": {
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click": "pavucontrol",
+        "scroll-step": 5
+    },
+
+    "tray": {
+        "icon-size": 18,
+        "spacing": 10
+    },
+
+    "custom/mic": {
+        "exec": "~/.config/waybar/scripts/mic.sh",
+        "return-type": "json",
+        "interval": 2,
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    },
+
+    "custom/updates": {
+        "exec": "~/.config/waybar/scripts/updates.sh",
+        "return-type": "json",
+        "interval": 1800,
+        "on-click": "alacritty -e yay -Syu"
+    },
+
+    "custom/power": {
+        "format": "⏻",
+        "on-click": "swaylock",
+        "tooltip": false
+    }
+}
