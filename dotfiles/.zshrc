@@ -42,3 +42,10 @@ PROMPT='%F{green}%n%f@%F{cyan}%m%f %F{yellow}%~%f${vcs_info_msg_0_} %F{green}❯
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ] && \
     source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# ── Greeting (Girl with a Pearl Earring - Vermeer) ───────────────────
+if [[ -o interactive ]] && [[ -f ~/.config/vermeer-art.txt ]]; then
+  printf '\n'
+  cat ~/.config/vermeer-art.txt
+  printf '\n'
+fi

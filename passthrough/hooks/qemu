@@ -1,33 +1,38 @@
 #!/bin/bash
-# libvirt hook: rebind the GPU to the host after the passthrough VM shuts down.
+# libvirt hook: rebind GPUs to the host after the passthrough VM shuts down.
 #
-# The GPU is attached to the VM automatically by libvirt because the <hostdev>
-# entries use managed='yes' (libvirt detaches it from the host and binds it to
-# vfio-pci on start). This hook only handles the way back: on VM release it
-# unbinds the GPU from vfio-pci and rebinds the host's amdgpu + audio drivers,
-# then re-enables the virtual consoles.
+# Dual GPU setup: both cards are handed to the VM automatically by libvirt
+# (managed='yes' in <hostdev>). This hook handles the way back: on VM
+# release it unbinds from vfio-pci and rebinds the host drivers.
 #
 # Install to: /etc/libvirt/hooks/qemu  (chmod +x)
 
-[ "$1" = "win11_gpu" ] || exit 0
+[ "$1" = "YOUR_VM_NAME" ] || exit 0
 [ "$2" = "release" ] && [ "$3" = "end" ] || exit 0
-exec >> /var/log/libvirt/win11_gpu-hook.log 2>&1
+exec >> /var/log/libvirt/gpu-hook.log 2>&1
 echo "== $(date) release =="
 
-VGA=0000:0d:00.0   # Radeon RX 9070 XT
-HDA=0000:0d:00.1   # GPU HDMI/DP audio
+# Replace with your PCI addresses (lspci -nnk | grep -A3 VGA)
+GPU1_VGA=0000:00:00.0
+GPU1_HDA=0000:00:00.1
+
+GPU2_VGA=0000:00:00.0
+GPU2_HDA=0000:00:00.1
 
 sleep 2
-echo "$VGA" > /sys/bus/pci/drivers/vfio-pci/unbind
-echo "$HDA" > /sys/bus/pci/drivers/vfio-pci/unbind
-echo "" > /sys/bus/pci/devices/$VGA/driver_override
-echo "" > /sys/bus/pci/devices/$HDA/driver_override
+
+for dev in $GPU1_VGA $GPU1_HDA $GPU2_VGA $GPU2_HDA; do
+    echo "$dev" > /sys/bus/pci/drivers/vfio-pci/unbind 2>/dev/null
+    echo "" > /sys/bus/pci/devices/$dev/driver_override
+done
+
 sleep 1
 
 modprobe amdgpu
-echo "$VGA" > /sys/bus/pci/drivers/amdgpu/bind
+echo "$GPU1_VGA" > /sys/bus/pci/drivers/amdgpu/bind
+echo "$GPU2_VGA" > /sys/bus/pci/drivers/amdgpu/bind
 sleep 3
-echo "$HDA" > /sys/bus/pci/drivers/snd_hda_intel/bind
+echo "$GPU1_HDA" > /sys/bus/pci/drivers/snd_hda_intel/bind
+echo "$GPU2_HDA" > /sys/bus/pci/drivers/snd_hda_intel/bind
 
-# Re-enable the virtual consoles (framebuffer) on the host
 for vt in /sys/class/vtconsole/vtcon*/bind; do echo 1 > "$vt"; done

@@ -31,6 +31,7 @@ PACMAN_PKGS=(
     zsh
     zsh-syntax-highlighting
     zsh-autosuggestions
+    conky
     cava
     cliphist
     wl-clipboard
@@ -73,17 +74,18 @@ else
     warn "No AUR helper found (yay/paru). Install manually: ${AUR_PKGS[*]}"
 fi
 
-# ── Rice configs (niri, waybar, swaylock, mako, ranger, zathura, mpv) ─
-for app in niri waybar swaylock mako ranger zathura mpv; do
+# ── Rice configs ─────────────────────────────────────────────────────
+for app in niri waybar swaylock mako ranger zathura mpv conky gtk-3.0 gtk-4.0; do
     link_config "$REPO_DIR/rice/.config/$app" "$CONFIG_DIR/$app"
 done
 
-# ── Dotfiles (alacritty, fuzzel, ueberzugpp) ─────────────────────────
+# ── Dotfiles ─────────────────────────────────────────────────────────
 for app in alacritty fuzzel ueberzugpp; do
     link_config "$REPO_DIR/dotfiles/.config/$app" "$CONFIG_DIR/$app"
 done
 
 # ── Shell ─────────────────────────────────────────────────────────────
+link_config "$REPO_DIR/dotfiles/.config/vermeer-art.txt" "$CONFIG_DIR/vermeer-art.txt"
 link_config "$REPO_DIR/dotfiles/.zshrc" "$USER_HOME/.zshrc"
 if [ "$(basename "$SHELL")" != "zsh" ]; then
     info "Changing default shell to zsh..."
